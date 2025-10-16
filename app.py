@@ -427,6 +427,7 @@ if __name__ == "__main__":
     print("Initializing ArtAgents...")
     # Set launch parameters
     demo.launch(
+        allowed_paths=["/"] # <-- to allow access to all paths when running locally
         # share=True # For public link
         # server_name="0.0.0.0" # For network access
         # debug=True # Enable Gradio debug mode if needed

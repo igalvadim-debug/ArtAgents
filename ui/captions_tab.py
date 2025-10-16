@@ -16,7 +16,6 @@ def create_captions_tab(initial_agent_team_choices, initial_vision_models):
             captions_folder_path = gr.Textbox(
                 label="Image Folder Path",
                 placeholder="Enter the full path to the folder containing images and .txt captions",
-                info=get_tooltip("captions_folder_path"),
                 scale=3
             )
             captions_load_button = gr.Button("Load Folder", variant="secondary", scale=1)
@@ -24,7 +23,6 @@ def create_captions_tab(initial_agent_team_choices, initial_vision_models):
         with gr.Row():
             with gr.Column(scale=1):
                 gr.Markdown("### Images")
-                # --- Replace CheckboxGroup with Gallery ---
                 captions_image_gallery = gr.Gallery(
                     label="Loaded Images",
                     show_label=True,
@@ -32,28 +30,21 @@ def create_captions_tab(initial_agent_team_choices, initial_vision_models):
                     height=550, # Adjust height
                     columns=5, # Adjust columns
                     preview=True, # Allows clicking for selection event
-                    # Tooltip isn't directly supported, add info elsewhere if needed
                     elem_id="caption_gallery" # Add elem_id if needed
                 )
-                # --- End Gallery ---
-                # Remove the separate Image Preview, Gallery handles preview
-                # caption_image_preview = gr.Image(...)
 
             with gr.Column(scale=2):
                 gr.Markdown("### Selected Image Caption") # Renamed section
                 caption_selected_filename_display = gr.Textbox(
-                    label="Selected Image Filename", interactive=False, # Renamed label
-                    info="Filename of the image currently selected in the gallery."
+                    label="Selected Image Filename", interactive=False
                 )
                 captions_caption_display = gr.Textbox(
                     label="Caption / Text Content", lines=10,
                     interactive=True,
-                    placeholder="Click an image in the gallery to view/edit its caption...",
-                    info=get_tooltip("captions_caption_display")
+                    placeholder="Click an image in the gallery to view/edit its caption..."
                 )
                 captions_save_button = gr.Button(
-                    "Save THIS Caption", variant="primary",
-                    info=get_tooltip("captions_save_button")
+                    "Save THIS Caption", variant="primary"
                 )
 
                 gr.Markdown("---")
@@ -61,59 +52,45 @@ def create_captions_tab(initial_agent_team_choices, initial_vision_models):
                 with gr.Group():
                     caption_model_selector = gr.Dropdown(
                         choices=initial_vision_models,
-                        label="Select Vision Model", # Simplified label
-                        value=initial_vision_models[0] if initial_vision_models else None,
-                        info=get_tooltip("caption_model_selector")
+                        label="Select Vision Model",
+                        value=initial_vision_models[0] if initial_vision_models else None
                     )
                     caption_agent_selector = gr.Dropdown(
                         choices=initial_agent_team_choices,
-                        label="Select Agent/Team", # Simplified label
-                        value=initial_agent_team_choices[0] if initial_agent_team_choices else None,
-                        info=get_tooltip("caption_agent_selector")
+                        label="Select Agent/Team",
+                        value=initial_agent_team_choices[0] if initial_agent_team_choices else None
                     )
                     caption_generate_mode = gr.Radio(
                         ["Overwrite", "Skip", "Append", "Prepend"],
-                        label="Generated Caption File Handling", value="Overwrite",
-                        info=get_tooltip("caption_generate_mode")
+                        label="Generated Caption File Handling", value="Overwrite"
                     )
-                    # --- Modify Buttons ---
                     caption_generate_selected_button = gr.Button(
-                         "Generate Caption for SELECTED Image", # Renamed Button
-                         variant="secondary",
-                         info=get_tooltip("caption_generate_selected_button")
+                         "Generate Caption for SELECTED Image",
+                         variant="secondary"
                     )
-                    # Keep batch generate, but maybe disable initially until multi-select is refined?
                     caption_generate_all_button = gr.Button(
                          "Generate Captions for ALL Loaded Images",
-                         variant="secondary",
-                         # interactive=False, # Optionally disable initially
-                         info=get_tooltip("caption_generate_all_button")
+                         variant="secondary"
                     )
-                    # --- End Button Modify ---
 
                 captions_status_display = gr.Textbox(label="Status", interactive=False, lines=3)
 
                 with gr.Accordion("Manual Batch Append/Prepend (Requires Multi-Select - TBD)", open=False):
                     gr.Markdown("Manually add text to captions for **multiple selected images** (Multi-select UI to be determined).")
                     captions_batch_text = gr.Textbox(
-                        label="Text to Add",
-                        info=get_tooltip("captions_batch_text")
+                        label="Text to Add"
                     )
                     with gr.Row():
-                        captions_prepend_button = gr.Button("Prepend Text", info=get_tooltip("captions_prepend_button"))
-                        captions_append_button = gr.Button("Append Text", info=get_tooltip("captions_append_button"))
-                        # Disable batch buttons until multi-select is clear
+                        captions_prepend_button = gr.Button("Prepend Text")
+                        captions_append_button = gr.Button("Append Text")
                         captions_prepend_button.interactive = False
                         captions_append_button.interactive = False
 
 
     return {
-        # Existing Components (some removed/renamed)
         "captions_folder_path": captions_folder_path,
         "captions_load_button": captions_load_button,
-        # "captions_image_selector": captions_image_selector, # Replaced by gallery
-        "captions_image_gallery": captions_image_gallery, # NEW Gallery component
-        # "caption_image_preview": caption_image_preview, # Removed, gallery has preview
+        "captions_image_gallery": captions_image_gallery,
         "caption_selected_filename_display": caption_selected_filename_display,
         "captions_caption_display": captions_caption_display,
         "captions_save_button": captions_save_button,
@@ -121,15 +98,11 @@ def create_captions_tab(initial_agent_team_choices, initial_vision_models):
         "captions_prepend_button": captions_prepend_button,
         "captions_append_button": captions_append_button,
         "captions_status_display": captions_status_display,
-
-        # Agent Captioning Components
         "caption_model_selector": caption_model_selector,
         "caption_agent_selector": caption_agent_selector,
         "caption_generate_mode": caption_generate_mode,
-        "caption_generate_selected_button": caption_generate_selected_button, # Renamed
+        "caption_generate_selected_button": caption_generate_selected_button,
         "caption_generate_all_button": caption_generate_all_button,
-
-        # State keys remain the same conceptually
         "caption_image_paths_state_key": "caption_image_paths_state",
         "caption_data_state_key": "caption_data_state",
         "caption_selected_item_state_key": "caption_selected_item_state",

@@ -23,61 +23,50 @@ def create_app_settings_tab(initial_settings):
                 with gr.Group():
                     settings_ollama_url = gr.Textbox(
                         label="Ollama URL",
-                        value=initial_settings.get("ollama_url", ""),
-                        info=get_tooltip("ollama_url") # Add tooltip
+                        value=initial_settings.get("ollama_url", "")
                     )
                     settings_max_tokens_slider_range = gr.Slider(
                         label="Max Tokens Slider Range (Chat Tab)", minimum=512, maximum=16384, step=256,
-                        value=initial_settings.get("max_tokens_slider", 4096),
-                        info=get_tooltip("max_tokens_range") # Add tooltip
+                        value=initial_settings.get("max_tokens_slider", 4096)
                     )
                     settings_api_to_console = gr.Checkbox(
                         label="Log API Request Details to Console",
-                        value=initial_settings.get("ollama_api_prompt_to_console", True),
-                        info=get_tooltip("log_api") # Add tooltip
+                        value=initial_settings.get("ollama_api_prompt_to_console", True)
                     )
 
                 gr.Markdown("### Agent Loading")
                 with gr.Group():
                      settings_use_default = gr.Checkbox(
                          label="Load Default Agents (agents/agent_roles.json)",
-                         value=initial_settings.get("using_default_agents", True),
-                         info=get_tooltip("load_default_agents") # Add tooltip
+                         value=initial_settings.get("using_default_agents", True)
                      )
                      settings_use_custom = gr.Checkbox(
                          label="Load Custom Agents (agents/custom_agent_roles.json)",
-                         value=initial_settings.get("using_custom_agents", False),
-                         info=get_tooltip("load_custom_agents") # Add tooltip
+                         value=initial_settings.get("using_custom_agents", False)
                      )
 
                 gr.Markdown("### Default UI States")
                 with gr.Group():
                      settings_use_ollama_opts_default = gr.Checkbox(
                          label="Enable 'Use Advanced Ollama API Options' by Default",
-                         value=initial_settings.get("use_ollama_api_options", False),
-                         # Tooltip defined in core/help_content.py as "use_advanced_options" (matching chat tab)
-                         info=get_tooltip("use_advanced_options")
+                         value=initial_settings.get("use_ollama_api_options", False)
                      )
                      settings_release_model_default = gr.Checkbox(
                          label="Enable 'Unload Previous Model' by Default",
-                         value=initial_settings.get("release_model_on_change", False),
-                         # Tooltip defined in core/help_content.py as "release_model" (matching chat tab)
-                         info=get_tooltip("release_model")
+                         value=initial_settings.get("release_model_on_change", False)
                      )
 
                 gr.Markdown("### Appearance")
                 with gr.Group():
                     settings_theme_select = gr.Dropdown(
                          theme_names, label="UI Theme",
-                         value=initial_settings.get("gradio_theme", "Default"),
-                         info=get_tooltip("theme_select") # Add tooltip
+                         value=initial_settings.get("gradio_theme", "Default")
                     )
 
                 gr.Markdown("### Ollama Actions")
                 with gr.Group():
                     release_models_button = gr.Button(
-                         "Release All Ollama Models Now", variant="stop",
-                         info=get_tooltip("release_all_button") # Add tooltip
+                         "Release All Ollama Models Now", variant="stop"
                     )
                     release_status_display = gr.Textbox(label="Release Status", interactive=False, lines=2)
 
@@ -90,8 +79,8 @@ def create_app_settings_tab(initial_settings):
                  # --- Profile Loading ---
                 with gr.Group():
                     with gr.Row():
-                        profile_select = gr.Dropdown(profile_names, label="Load API Profile Preset", scale=3, info=get_tooltip("profile_load"))
-                        load_profile_button = gr.Button("Load Profile", scale=1, info=get_tooltip("load_profile_button")) # Add tooltip if needed
+                        profile_select = gr.Dropdown(profile_names, label="Load API Profile Preset", scale=3)
+                        load_profile_button = gr.Button("Load Profile", scale=1)
                 # --- Dynamic components for Ollama options ---
                 ollama_options_ui_elements = {} # Store UI elements keyed by option name
                 initial_ollama_options = initial_settings.get("ollama_api_options", {})
@@ -99,12 +88,10 @@ def create_app_settings_tab(initial_settings):
                     # Sort for consistent order
                     for key in sorted(initial_ollama_options.keys()):
                         value = initial_ollama_options[key]
-                        tooltip_key = f"opt_{key}" # Construct key for help lookup
                         comp_args = {
                             "label": key,
                             "value": value,
                             "interactive": True,
-                            "info": get_tooltip(tooltip_key) # Add tooltip here
                         }
                         # Determine component type based on value type or key name
                         if isinstance(value, bool):
@@ -126,7 +113,7 @@ def create_app_settings_tab(initial_settings):
                             comp = gr.Textbox(**comp_args)
                         ollama_options_ui_elements[key] = comp # Store component
 
-        settings_save_button = gr.Button("Save All App Settings", variant="primary", info=get_tooltip("save_settings_button")) # Add tooltip
+        settings_save_button = gr.Button("Save All App Settings", variant="primary")
         save_status_display = gr.Textbox(label="Save Status", interactive=False)
 
 
@@ -151,6 +138,4 @@ def create_app_settings_tab(initial_settings):
         # Save Action
         "settings_save_button": settings_save_button,
         "save_status_display": save_status_display,
-        # Data needed for callbacks (passed via state in app.py usually)
-        # "profile_data": profile_data, # No need to return, load via state in app.py
     }

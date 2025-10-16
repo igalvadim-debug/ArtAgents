@@ -18,8 +18,7 @@ def create_team_editor_tab(initial_team_names, initial_available_agent_names):
             with gr.Column(scale=1):
                 gr.Markdown("### Load / Manage Teams")
                 team_select_dropdown = gr.Dropdown(
-                    choices=initial_team_names, label="Select Team to Load/Edit",
-                    info="Select a team to view or modify its steps below."
+                    choices=initial_team_names, label="Select Team to Load/Edit"
                 )
                 load_team_button = gr.Button("Load Selected Team")
                 delete_team_button = gr.Button("Delete Selected Team", variant="stop")
@@ -27,18 +26,12 @@ def create_team_editor_tab(initial_team_names, initial_available_agent_names):
 
             with gr.Column(scale=2):
                 gr.Markdown("### Team Details")
-                team_name_textbox = gr.Textbox(label="Team Name", info="Unique name for this workflow.")
-                team_description_textbox = gr.Textbox(label="Team Description", lines=2, info="Briefly explain what this team does.")
+                team_name_textbox = gr.Textbox(label="Team Name")
+                team_description_textbox = gr.Textbox(label="Team Description", lines=2)
                 assembly_strategy_radio = gr.Radio(
-                    # ***** UPDATED CHOICES HERE *****
                     choices=["concatenate", "refine_last", "summarize_all", "structured_concatenate"],
                     value="concatenate",
-                    label="Final Output Strategy",
-                    # ***** UPDATED INFO HERE *****
-                    info=("'concatenate': Joins all step outputs.\n"
-                          "'refine_last': Uses only the last step's output.\n"
-                          "'summarize_all': Calls an LLM to synthesize all outputs.\n"
-                          "'structured_concatenate': Joins outputs with agent/step labels.")
+                    label="Final Output Strategy"
                 )
 
         gr.Markdown("---")
@@ -51,8 +44,7 @@ def create_team_editor_tab(initial_team_names, initial_available_agent_names):
             with gr.Column(scale=1):
                 gr.Markdown("#### Add/Remove Steps")
                 agent_to_add_dropdown = gr.Dropdown(
-                    choices=initial_available_agent_names, label="Select Agent Role for New Step",
-                    info="Choose an agent (Default, Custom, or [File]) to add."
+                    choices=initial_available_agent_names, label="Select Agent Role for New Step"
                 )
                 add_step_button = gr.Button("Add Selected Agent as Step", variant="secondary")
                 gr.Markdown("---")

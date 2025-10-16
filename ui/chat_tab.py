@@ -18,20 +18,16 @@ def create_chat_tab(initial_roles_list, initial_models_list, initial_limiters_li
                 gr.Markdown("### Input Source")
                 with gr.Group():
                      folder_path = gr.Textbox(
-                         label="Image Folder Path (Optional)",
-                         info=get_tooltip("folder_path") # Add tooltip
+                         label="Image Folder Path (Optional)"
                      )
                      single_image_display = gr.Image(
                           label="Single Image Input (Optional)",
                           type="numpy", # For compatibility with logic assuming numpy
-                          height=256,
-                          # sources=["upload", "clipboard"], # Removed for Gradio 3.x
-                          info=get_tooltip("single_image") # Add tooltip
+                          height=256
                      )
                      file_handling_option = gr.Radio(
                           ["Overwrite", "Skip", "Append", "Prepend"],
-                          label="Folder .txt File Handling", value="Skip", scale=2, min_width=80,
-                          info=get_tooltip("file_handling") # Add tooltip
+                          label="Folder .txt File Handling", value="Skip"
                      )
 
             with gr.Column(scale=2):
@@ -40,54 +36,45 @@ def create_chat_tab(initial_roles_list, initial_models_list, initial_limiters_li
                     role_dropdown = gr.Dropdown(
                         initial_roles_list, label="Select Agent",
                         value=initial_roles_list[0] if initial_roles_list else None,
-                        elem_id="role_dropdown",
-                        info=get_tooltip("role_dropdown") # Add tooltip
+                        elem_id="role_dropdown"
                     )
                     model_with_vision = gr.Dropdown(
-                        initial_models_list, label="Select Model", elem_id="model_dropdown",
-                        info=get_tooltip("model_dropdown") # Add tooltip
+                        initial_models_list, label="Select Model", elem_id="model_dropdown"
                     )
                     user_input = gr.Textbox(
                         label="User Input / Prompt Instructions", lines=3,
-                        placeholder="Enter your main prompt or instructions here...", elem_id="user_input",
-                        info=get_tooltip("user_input") # Add tooltip
+                        placeholder="Enter your main prompt or instructions here...", elem_id="user_input"
                     )
 
                 with gr.Accordion("Advanced & Experimental Options", open=False):
                      with gr.Row():
                           limiter_handling_option = gr.Radio(
                                ["Off"] + initial_limiters_list, label="Prompt Style Limiter",
-                               value="Off",
-                               info=get_tooltip("limiter") # Add tooltip
+                               value="Off"
                           )
                           max_tokens_slider = gr.Slider(
                               minimum=50, maximum=initial_settings.get("max_tokens_slider", 4096), step=10,
-                              value=initial_settings.get("max_tokens_slider", 1500) // 2, label="Max Tokens (Approx)",
-                              info=get_tooltip("max_tokens") # Add tooltip
+                              value=initial_settings.get("max_tokens_slider", 1500) // 2, label="Max Tokens (Approx)"
                           )
                      with gr.Row():
                           use_ollama_api_options = gr.Checkbox(
                                label="Use Advanced Ollama API Options (from App Settings)",
-                               value=initial_settings.get("use_ollama_api_options", False),
-                               info=get_tooltip("use_advanced_options") # Add tooltip
+                               value=initial_settings.get("use_ollama_api_options", False)
                           )
                           release_model_on_change = gr.Checkbox(
                                label="Unload Previous Model on Change",
-                               value=initial_settings.get("release_model_on_change", False),
-                               info=get_tooltip("release_model") # Add tooltip
+                               value=initial_settings.get("release_model_on_change", False)
                           )
-                          # --- Cleaner Checkbox ---
                           clean_prompt_artifacts = gr.Checkbox(
                               label="Clean Prompt Artifacts (e.g., '--- Output from...') [Experimental]",
-                              value=False, # Default to False
-                              info="If checked, attempts to remove agent output headers from the final response."
+                              value=False
                           )
-                          # --- End Cleaner Checkbox ---
                      with gr.Row():
                           agent_file_upload = gr.File(
                                label="Load Agents from .json File (Session Only)",
-                               file_types=['.json'], scale=2,
-                               info=get_tooltip("agent_file_upload") # Add tooltip
+                               file_count="single",
+                               file_types=[".json"],
+                               scale=2
                           )
                           loaded_agent_file_display = gr.Textbox(
                                label="Loaded File", interactive=False, scale=1
@@ -96,26 +83,22 @@ def create_chat_tab(initial_roles_list, initial_models_list, initial_limiters_li
 
 
         with gr.Row():
-             submit_button = gr.Button("✨ Generate Response", variant="primary", scale=2, info=get_tooltip("submit_button"))
-             comment_button = gr.Button("💬 Comment/Refine", scale=1, info=get_tooltip("comment_button"))
-             clear_session_button = gr.Button("🧹 Clear Session History", scale=1, info=get_tooltip("clear_session_button"))
+             submit_button = gr.Button("✨ Generate Response", variant="primary", scale=2)
+             comment_button = gr.Button("💬 Comment/Refine", scale=1)
+             clear_session_button = gr.Button("🧹 Clear Session History", scale=1)
 
         with gr.Row():
              with gr.Column(scale=2):
-                 # --- Row for Response Label + Copy Button ---
                  with gr.Row():
-                     gr.Markdown("### LLM Response", scale=10) # Give label more space
-                     copy_response_button = gr.Button("📋 Copy", variant="tool", scale=1) # Use tool variant, small scale
-                 # --- End Row ---
+                     gr.Markdown("### LLM Response") # <-- FIX: scale removed
+                     copy_response_button = gr.Button("📋 Copy", variant="tool", scale=0) # <-- FIX: scale set to 0
                  llm_response_display = gr.Textbox(
-                     # Label removed as it's now in the Markdown header above
                      lines=15, interactive=False,
-                     elem_id="llm_response" # Assign elem_id for JS access
+                     elem_id="llm_response"
                  )
                  comment_input = gr.Textbox(
                       label="Enter Comment / Refinement", lines=2,
-                      placeholder="Type your follow-up instruction here...", elem_id="comment_input",
-                      info=get_tooltip("comment_input") # Add tooltip
+                      placeholder="Type your follow-up instruction here...", elem_id="comment_input"
                  )
              with gr.Column(scale=1):
                  gr.Markdown("### Session History")
@@ -123,14 +106,10 @@ def create_chat_tab(initial_roles_list, initial_models_list, initial_limiters_li
                       label="Current Session Log", lines=20, interactive=False, elem_id="session_history"
                  )
 
-        # --- Dummy HTML for JS Execution ---
         js_trigger_output = gr.HTML(visible=False, value="<!-- JS Trigger -->")
-        # --- End Dummy HTML ---
 
 
-    # Return dictionary of key components and states needed by app.py
     return {
-        # UI Components needed for input/output binding
         "role_dropdown": role_dropdown,
         "model_with_vision": model_with_vision,
         "user_input": user_input,
@@ -141,18 +120,17 @@ def create_chat_tab(initial_roles_list, initial_models_list, initial_limiters_li
         "max_tokens_slider": max_tokens_slider,
         "use_ollama_api_options": use_ollama_api_options,
         "release_model_on_change": release_model_on_change,
-        "clean_prompt_artifacts": clean_prompt_artifacts, # <-- Added checkbox
+        "clean_prompt_artifacts": clean_prompt_artifacts,
         "agent_file_upload": agent_file_upload,
         "loaded_agent_file_display": loaded_agent_file_display,
         "submit_button": submit_button,
         "comment_button": comment_button,
         "clear_session_button": clear_session_button,
         "llm_response_display": llm_response_display,
-        "copy_response_button": copy_response_button, # <-- Added button
+        "copy_response_button": copy_response_button,
         "comment_input": comment_input,
         "current_session_history_display": current_session_history_display,
-        "js_trigger_output": js_trigger_output, # <-- Added dummy HTML output
-        # States used by this tab's logic or passed between callbacks
+        "js_trigger_output": js_trigger_output,
         "selected_model_tracker": selected_model_tracker,
         "model_state": model_state,
         "loaded_file_agents_state": loaded_file_agents_state,
