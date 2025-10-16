@@ -150,7 +150,6 @@ For more detailed information, please refer to the [documents](docs/index.md) in
 **Phase 1: Foundational Expansion & Modernization (Current Focus)**
 
 *   **Gradio 5.x Upgrade:** Evaluate and execute upgrade from Gradio 3.x.
-*   **Hydra Integration:** Migrate `.json` configurations to Hydra (`.yaml`) for improved experiment management.
 *   **Implement Select Novel Synthesis Strategies:** Add 2-3 creative strategies (e.g., Metaphorical Synthesis, Conceptual Blending) to `agent_manager.py` and Team Editor UI.
 *   **NLP Library Integration (`nlpaug`):** Integrate for noise/synonym capabilities within strategies or as agent steps.
 *   **Unit Testing Expansion:** Write comprehensive `pytest` tests for core logic and new features.
@@ -164,6 +163,8 @@ For more detailed information, please refer to the [documents](docs/index.md) in
 *   Enhanced UI/UX (Improved Team Editor, potential Gradio custom components).
 *   Explainability / XAI Features.
 *   More Novel Synthesis Strategies & NLP features.
+*   **Hydra Integration:** Migrate `.json` configurations to Hydra (`.yaml`) for improved experiment management.
+
 
 ## Contributing
 
