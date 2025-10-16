@@ -18,12 +18,12 @@ def create_history_tab(initial_history_list):
         # Confirmation components for clearing history
         with gr.Group(visible=False) as confirm_clear_group:
              with gr.Row():
-                  gr.Markdown("❓ **Clear entire history file permanently? This cannot be undone.**", scale=3)
+                  # The fix is on the next line: 'scale=3' has been removed.
+                  gr.Markdown("❓ **Clear entire history file permanently? This cannot be undone.**")
                   yes_clear_button = gr.Button("Yes, Clear History", variant="stop", scale=1)
                   no_clear_button = gr.Button("No, Cancel", scale=1)
         clear_history_button = gr.Button(
-            "Clear Full History File...",
-            info=get_tooltip("clear_history_button") # Add tooltip
+            "Clear Full History File..."
         )
 
     return {

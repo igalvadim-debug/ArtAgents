@@ -2,11 +2,47 @@
 
 ArtAgents is a prototype framework designed for artists, designers, and creators to experiment with LLM-based prompt engineering and creative content generation. It leverages Ollama for local model serving, allowing users to interact with various text and multimodal models through specialized AI 'agents' and structured, configurable workflows ("Teams").
 
-[![artagents-github](https://github.com/user-attachments/assets/9350bb3a-9e19-4818-b109-983c5a6b0bb1)]() <!-- Consider updating screenshot to reflect current UI -->
+![ArtAgents updated with Gradio 5](https://github.com/user-attachments/assets/bba56e15-bf11-49a8-9e45-f63acc79d236)
+
+[![ArtAgents experimental tool for prompt engineering using agent systems](https://github.com/user-attachments/assets/9350bb3a-9e19-4818-b109-983c5a6b0bb1)]() <!-- Consider updating screenshot to reflect current UI -->
 
 ## Overview
 
 Select predefined agents, load custom agents, or utilize multi-agent "Teams" to generate detailed prompts, descriptions, image captions, or other text outputs. Provide text instructions and optionally images as input. Fine-tune generation using Ollama API parameters, prompt style limiters, and agent presets. Experiment systematically using the Sweep feature and manage image captions directly within the application.
+
+---
+
+##  Recent Updates 
+- (v0.9.5-alpha, October 2025)
+
+This project has undergone a significant technical upgrade and has been enhanced with new creative capabilities.
+
+### Major Technical Upgrade: Gradio 5.x+
+
+The application has been successfully migrated from the legacy Gradio 3.x framework to a modern **Gradio 5.x+** version, refactoring the user interface and event handling system.
+
+*   **Enhanced Security:** The app now operates under Gradio's secure file-access model.
+*   **Improved Performance & Stability:** The new version provides a more robust and performant foundation for future development.
+
+### New Feature: Creative Synthesis Strategies & Teams
+
+To boost the experimental and artistic value of experiments, we have implemented several new creative assembly strategies. These move beyond simple description towards transformative and conceptually-driven prompt engineering.
+
+Three new teams have been added to `agent_teams.json` to leverage these strategies:
+
+1.  **Creative - Metaphorical Vision**
+    *   **Strategy:** `metaphorical_synthesis`
+    *   **How it works:** This team gathers rich, multi-sensory input (mood, color, texture) and reinterprets it through a dynamically chosen creative metaphor. It's excellent for generating abstract and evocative results that break creative blocks.
+
+2.  **Creative - Hybrid Concept Factory**
+    *   **Strategy:** `conceptual_blend`
+    *   **How it works:** This team is built to create productive conflict by forcing the final agent to blend three distinct concepts: a concrete **object**, a broad **world/style**, and an abstract **theme**. This structure is a recipe for generating genuinely unique and unexpected ideas.
+
+3.  **Creative - Themed Content Writer**
+    *   **Strategy:** `stylistic_mashup`
+    *   **How it works:** This strategy separates *what* is being described from *how* it is described. The team builds a complete, detailed picture of a scene's content, and the final synthesis step reframes it by rewriting the entire prompt in a dynamically chosen literary or textual style, creating a powerful juxtaposition between substance and style.
+
+---
 
 ## Key Features
 
@@ -14,7 +50,7 @@ Select predefined agents, load custom agents, or utilize multi-agent "Teams" to 
 
 *   **Ollama Integration:** Connects to a running Ollama instance to utilize locally served LLMs (text & multimodal) with startup check.
 *   **Agent System:** Define and use specialized agents (Designer, Photographer, Styler, etc.) with unique instructions and optional API overrides (`agent_roles.json`, `custom_agent_roles.json`).
-*   **Agent Team / Workflow Execution:** Define (`agent_teams.json`) and run multi-step agent sequences ("Teams"). Supports sequential execution with context passing and multiple result assembly strategies (`concatenate`, `refine_last`, `summarize_all`, `structured_concatenate`).
+*   **Agent Team / Workflow Execution:** Define (`agent_teams.json`) and run multi-step agent sequences ("Teams"). Supports sequential execution with context passing and multiple result assembly strategies (`concatenate`, `refine_last`, `summarize_all`, `structured_concatenate`, and other innovative experimental strategies).
 *   **Team Editor:** Create, edit, save, and delete Agent Teams via a dedicated UI tab.
 *   **Chat Interface:** Main tab for direct interaction with selected agents or teams, including session history and response refinement.
 *   **Multimodal Input:** Supports single image upload or processing images within a specified folder for chat or captioning context.
@@ -146,11 +182,10 @@ For more detailed information, please refer to the [documents](docs/index.md) in
 *   Copy-to-clipboard button added.
 *   Consolidated "Info" tab implemented.
 *   Error handling reviewed and improved.
+*   **Gradio 5.x Upgrade:** Evaluate and execute upgrade from Gradio 3.x.
 
 **Phase 1: Foundational Expansion & Modernization (Current Focus)**
 
-*   **Gradio 5.x Upgrade:** Evaluate and execute upgrade from Gradio 3.x.
-*   **Hydra Integration:** Migrate `.json` configurations to Hydra (`.yaml`) for improved experiment management.
 *   **Implement Select Novel Synthesis Strategies:** Add 2-3 creative strategies (e.g., Metaphorical Synthesis, Conceptual Blending) to `agent_manager.py` and Team Editor UI.
 *   **NLP Library Integration (`nlpaug`):** Integrate for noise/synonym capabilities within strategies or as agent steps.
 *   **Unit Testing Expansion:** Write comprehensive `pytest` tests for core logic and new features.
@@ -164,6 +199,8 @@ For more detailed information, please refer to the [documents](docs/index.md) in
 *   Enhanced UI/UX (Improved Team Editor, potential Gradio custom components).
 *   Explainability / XAI Features.
 *   More Novel Synthesis Strategies & NLP features.
+*   **Hydra Integration:** Migrate `.json` configurations to Hydra (`.yaml`) for improved experiment management.
+
 
 ## Contributing
 

@@ -240,6 +240,87 @@ def run_team_workflow(
                  # Optionally return the error or the last successful output? For now, return error.
                  final_output = f"Error during final summarization step: {final_output.strip()}"
 
+    elif assembly_strategy == "metaphorical_synthesis":
+        print("Strategy: Metaphorical Synthesis")
+        if not successful_outputs:
+             final_output = "Error: No successful outputs to synthesize."
+        else:
+            # Step 1: Extract a dynamic metaphor from the context
+            print("  Step 1/2: Extracting a dynamic metaphor...")
+            summary_context = "\n---\n".join([f"Input from Step {idx}:\n{output}" for idx, output in successful_outputs.items()])
+            extraction_prompt = (
+                f"Analyze the following descriptive text:\n\n{summary_context}\n\n"
+                "What is a single, powerful, and creative metaphor that captures the essence of this text? "
+                "The metaphor should be unusual and visually evocative. Respond with ONLY the metaphor itself, without quotation marks."
+            )
+            dynamic_metaphor = get_llm_response(
+                role="Metaphor Extractor", prompt=extraction_prompt, model=worker_model_name,
+                settings=initial_settings, roles_data=all_roles_data, max_tokens=50 # Small token limit for the metaphor
+            ).strip().strip('\"')
+            print(f"  Dynamic Metaphor Chosen: '{dynamic_metaphor}'")
+
+            # Step 2: Apply the dynamic metaphor to synthesize the final prompt
+            print("  Step 2/2: Applying metaphor to synthesize final prompt...")
+            synthesis_prompt = (
+                 f"The following are several descriptive inputs:\n\n{summary_context}\n\n"
+                 f"Your task is to synthesize these inputs into a single, cohesive visual prompt. "
+                 f"You MUST express the final concept through the creative metaphor of '{dynamic_metaphor}'. "
+                 f"Describe the scene or object as an interpretation of this metaphor."
+            )
+            final_output = get_llm_response(
+                  role="Metaphorical Synthesizer", prompt=synthesis_prompt, model=worker_model_name,
+                  settings=initial_settings, roles_data=all_roles_data, max_tokens=1024
+            )
+
+    elif assembly_strategy == "conceptual_blend":
+        print("Strategy: Conceptual Blending")
+        if not successful_outputs:
+             final_output = "Error: No successful outputs to blend."
+        else:
+             # This strategy is already dynamic by nature, so it just needs a good prompt.
+             summary_context = "\n---\n".join([f"Concept from Step {idx}:\n{output}" for idx, output in successful_outputs.items()])
+             synthesis_prompt = (
+                 f"The following are several distinct concepts:\n\n{summary_context}\n\n"
+                 "Your task is to creatively blend these disparate concepts into a single, novel, hybrid entity or scene. "
+                 "Do not just list them. Fuse their core attributes to describe something entirely new. "
+                 "Generate a detailed visual prompt for this new hybrid concept."
+             )
+             final_output = get_llm_response(
+                  role="Concept Blender", prompt=synthesis_prompt, model=worker_model_name,
+                  settings=initial_settings, roles_data=all_roles_data, max_tokens=1024
+             )
+
+    elif assembly_strategy == "stylistic_mashup":
+        print("Strategy: Stylistic Mashup")
+        if not successful_outputs:
+             final_output = "Error: No successful outputs for stylization."
+        else:
+            # Step 1: Extract a dynamic style from the context
+            print("  Step 1/2: Extracting a dynamic style...")
+            summary_context = "\n---\n".join([f"Content from Step {idx}:\n{output}" for idx, output in successful_outputs.items()])
+            extraction_prompt = (
+                f"Analyze the following content:\n\n{summary_context}\n\n"
+                "Propose a specific and creative literary or textual style to rewrite this content in. "
+                "The style should be interesting and perhaps slightly unusual. "
+                "Respond with ONLY the name of the style (e.g., '1920s newspaper report', 'a pirate's sea shanty', 'Python code comments')."
+            )
+            dynamic_style = get_llm_response(
+                role="Style Extractor", prompt=extraction_prompt, model=worker_model_name,
+                settings=initial_settings, roles_data=all_roles_data, max_tokens=50
+            ).strip().strip('\"')
+            print(f"  Dynamic Style Chosen: '{dynamic_style}'")
+
+            # Step 2: Apply the dynamic style to synthesize the final prompt
+            print("  Step 2/2: Applying style to synthesize final prompt...")
+            synthesis_prompt = (
+                 f"The following is the core content to include:\n\n{summary_context}\n\n"
+                 f"Your task is to synthesize this content into a single visual prompt. "
+                 f"However, you MUST write the entire final text in the literary style of '{dynamic_style}'."
+            )
+            final_output = get_llm_response(
+                  role="Stylizer Agent", prompt=synthesis_prompt, model=worker_model_name,
+                  settings=initial_settings, roles_data=all_roles_data, max_tokens=1024
+            )
     # --- Strategy: Structured Concatenate (NEW) ---
     elif assembly_strategy == "structured_concatenate":
         print("Strategy: Structured Concatenate")

@@ -13,31 +13,26 @@ def create_sweep_tab(initial_team_names, initial_model_names):
             with gr.Column(scale=2):
                 sweep_prompts_input = gr.Textbox(
                     label="Base User Prompt(s)", lines=5,
-                    info="Enter one prompt per line. Each prompt will be run against all selected configurations.",
                     placeholder="Example:\ndesign a minimalist chair using bent plywood\na photorealistic portrait of an astronaut on Mars"
                 )
             with gr.Column(scale=1):
                 sweep_output_folder_input = gr.Textbox(
-                    label="Output Subfolder Name", value="sweep_results",
-                    info="A folder named 'sweep_runs/[TIMESTAMP]_[NAME]' will be created in the project root."
+                    label="Output Subfolder Name", value="sweep_results"
                 )
                 sweep_log_intermediate_checkbox = gr.Checkbox(
-                    label="Log Intermediate Agent Steps?", value=False,
-                    info="Include the output of each agent step within the team workflow in the protocol file."
+                    label="Log Intermediate Agent Steps?", value=False
                 )
 
         with gr.Row():
             sweep_teams_select = gr.CheckboxGroup(
                 label="Select Agent Teams/Workflows to Test",
-                choices=initial_team_names,
-                info="Check one or more predefined teams."
+                choices=initial_team_names
             )
             # Filter out the (VISION) suffix for model selection for workers
             worker_model_choices = sorted(list(set([name.replace(" (VISION)","") for name in initial_model_names])))
             sweep_models_select = gr.CheckboxGroup(
                 label="Select Worker Models to Test",
-                choices=worker_model_choices,
-                info="Check one or more models to use for the agent steps."
+                choices=worker_model_choices
             )
 
         with gr.Row():
@@ -46,8 +41,7 @@ def create_sweep_tab(initial_team_names, initial_model_names):
         with gr.Row():
             gr.Markdown("### Sweep Progress & Status")
             sweep_status_display = gr.Textbox(
-                label="Status Log", lines=15, interactive=False,
-                info="Progress updates and final summary will appear here."
+                label="Status Log", lines=15, interactive=False
             )
 
     # Return dictionary of components needed by app.py

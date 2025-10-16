@@ -207,5 +207,62 @@
                 "goal": "Describe the composition, camera angle, and lighting setup."
             }
         ]
+    },
+
+    "Creative - Metaphorical Vision": {
+        "assembly_strategy": "metaphorical_synthesis",
+        "description": "Gathers diverse sensory inputs (mood, color, texture) and reinterprets them through a dynamically chosen creative metaphor. Excellent for abstract and evocative results.",
+        "steps": [
+            {
+                "role": "Artist",
+                "goal": "Describe the core subject and emotional mood of the scene."
+            },
+            {
+                "role": "Colorista",
+                "goal": "Describe the scene's color palette and the feelings those colors evoke."
+            },
+            {
+                "role": "Detailer",
+                "goal": "Describe the key textures, materials, and fine details present."
+            }
+        ]
+    },
+
+    "Creative - Hybrid Concept Factory": {
+        "assembly_strategy": "conceptual_blend",
+        "description": "Fuses three distinct inputs—a core object, a world/style, and an abstract theme—to generate a truly novel hybrid prompt. Ideal for creating something that has never been seen before.",
+        "steps": [
+            {
+                "role": "Designer",
+                "goal": "Describe a primary object or character, focusing on its form and function."
+            },
+            {
+                "role": "Styler",
+                "goal": "Describe an environment, world, or abstract architectural style (e.g., 'underwater city', 'digital wasteland', 'gothic art deco')."
+            },
+            {
+                "role": "Concise Describer",
+                "goal": "Provide a single, powerful emotional or abstract keyword that must be incorporated (e.g., 'solitude', 'growth', 'decay')."
+            }
+        ]
+    },
+    
+    "Creative - Themed Content Writer": {
+        "assembly_strategy": "stylistic_mashup",
+        "description": "Generates detailed content about a subject, then rewrites the entire prompt in a dynamically chosen literary or textual style for unique creative effects.",
+        "steps": [
+            {
+                "role": "Artist",
+                "goal": "Describe the core subject, characters, and action of the scene."
+            },
+            {
+                "role": "Photographer",
+                "goal": "Describe the composition, camera angle, and lighting of the scene."
+            },
+            {
+                "role": "Detailer",
+                "goal": "Describe the specific materials, textures, and background details."
+            }
+        ]
     }
 }
