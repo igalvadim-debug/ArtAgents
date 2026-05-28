@@ -1,0 +1,87 @@
+[
+    {
+        "name": "Aura_v2_7B-Q5_K_M-imat.gguf",
+        "vision": false,
+        "notes": "Aura v2 7B – Gute Balance, läuft flüssig im VRAM."
+    },
+    {
+        "name": "Dolphin3.0-Llama3.1-8B-abliterated.i1-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "Dolphin 3.0 (Zensurfrei) – Läuft komplett im VRAM, sehr gut für Teams."
+    },
+    {
+        "name": "gemma-4-26B-A4B-heretic-APEX-I-Compact.gguf",
+        "vision": false,
+        "notes": "WARNUNG: 26B ist zu groß für 8GB VRAM. Wird stark ausgelagert und läuft langsam."
+    },
+    {
+        "name": "gemma-4-E4B-it-heretic-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "Gemma 4 Heretic 4B (Q4) – **Empfohlen!** Rasend schnell, optimal für deine Grafikkarte."
+    },
+    {
+        "name": "gemma-4-E4B-it-heretic-Q6_K.gguf",
+        "vision": false,
+        "notes": "Gemma 4 Heretic 4B (Q6) – Höhere Qualität, läuft immer noch sehr gut im VRAM."
+    },
+    {
+        "name": "gemma-4-E4B-it-heretic-Q8_0.gguf",
+        "vision": false,
+        "notes": "Gemma 4 Heretic 4B (Q8) – Maximale Qualität der 4B-Version, belegt fast den kompletten VRAM."
+    },
+    {
+        "name": "L3-8B-Stheno-v3.2-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "Stheno v3.2 (Llama 3 8B) – Exzellentes Modell für kreatives Schreiben, passt gut in den VRAM."
+    },
+    {
+        "name": "Mistral-7B-Instruct-v0.3-abliterated.Q3_K_S.gguf",
+        "vision": false,
+        "notes": "Mistral 7B Q3 (Zensurfrei) – Extrem leichtfüßig und schnell auf deiner RTX 5060."
+    },
+    {
+        "name": "Mistral-7B-Instruct-v0.3-abliterated.Q5_K_S.gguf",
+        "vision": false,
+        "notes": "Mistral 7B Q5 (Zensurfrei) – Toller Allrounder für Prompt-Generierung, läuft komplett im VRAM."
+    },
+    {
+        "name": "Mistral-Nemo-12B-Instruct-2407-Q4_K_S.gguf",
+        "vision": false,
+        "notes": "Mistral Nemo 12B – Grenzwertig groß. Teilauslagerung in den System-RAM (etwas langsamer)."
+    },
+    {
+        "name": "Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "Qwen 2.5 Coder 7B – Perfekt für strukturierte JSON-Ausgaben in ArtAgents, läuft flüssig."
+    },
+    {
+        "name": "Qwen3.5-35B-A3B-MXFP4_MOE_BF16.gguf",
+        "vision": false,
+        "notes": "WARNUNG: 35B MoE ist viel zu groß für 8GB VRAM. Wird extrem langsam reagieren."
+    },
+    {
+        "name": "Qwen3.5-35B-A3B-Uncensored-HauhauCS-Aggressive-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "WARNUNG: 35B Uncensored. Trotz Quantisierung zu groß, starke Auslagerung in den RAM."
+    },
+    {
+        "name": "Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf",
+        "vision": false,
+        "notes": "Qwen 3.5 9B – Sehr hohe Qualität, passt gerade noch so in deinen VRAM."
+    },
+    {
+        "name": "Qwen3.6-27B-Q4_K_M_MTP.gguf",
+        "vision": false,
+        "notes": "WARNUNG: 27B Modell. Zu groß für deine Hardware, läuft sehr zäh."
+    },
+    {
+        "name": "saiga_llama3_8b.gguf",
+        "vision": false,
+        "notes": "Saiga Llama 3 8B – Optimiert für Russisch/Englisch, passt perfekt in den VRAM."
+    },
+    {
+        "name": "Yi-Coder-9B-Chat-Q4_K_M.gguf",
+        "vision": false,
+        "notes": "Yi-Coder 9B – Starkes Logikmodell, füllt den VRAM gut aus, läuft solide."
+    }
+]
